@@ -1,15 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LevelBuilder : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _levelBlocks;
+    [SerializeField] private LevelBlock[] _levelBlocks;
     [SerializeField] private Vector2Int _gridSize;
     [SerializeField] private int[] _levelContent;
 
-    private GameObject[] _levelObjects;
+    public LevelBlock[] LevelBlocks => _levelBlocks;
+    public int[] LevelContent => _levelContent;
+    public Vector2Int GridSize => _gridSize;
+
+    private LevelBlock[] _levelObjects;
 
     private void OnValidate()
     {
@@ -25,27 +31,33 @@ public class LevelBuilder : MonoBehaviour
 
     private void Awake()
     {
-        _levelObjects = new GameObject[_levelContent.Length];
+        _levelObjects = new LevelBlock[_levelContent.Length];
     }
 
-    private void Start()
+    public void BuildLevel(bool clean)
     {
-        BuildLevel();
-    }
-
-    private void BuildLevel()
-    {
-        for (int i = 0; i < _gridSize.x; i++)
+        for (int i = 0; i < _levelContent.Length; i++)
         {
-            for (int j = 0; j < _gridSize.y; j++)
-            {
-                _levelObjects[i*_gridSize.x + j] = Instantiate(
-                    _levelBlocks[_levelContent[i*_gridSize.x + j]],
-                    transform.position + Vector3.right * i + Vector3.forward * j,
-                    transform.rotation,
-                    transform
-                );
-            }
+            BuildObject(i, _levelContent[i], clean);
         }
+    }
+
+    public void BuildObject(int position, int blockType, bool clean)
+    {
+        if (!clean && _levelObjects[position] && _levelObjects[position].BlockType ==
+            _levelBlocks.FirstOrDefault(b => (int) b.BlockType == _levelContent[position]).BlockType)
+            return;
+        
+        if (_levelObjects[position])
+            Destroy(_levelObjects[position].gameObject);
+
+        Vector2Int coords = GridTools.IntToCoord(position, _gridSize);
+        
+        _levelObjects[position] = Instantiate(
+            _levelBlocks.FirstOrDefault(b => (int)b.BlockType == blockType),
+            transform.position + Vector3.right * coords.x + Vector3.forward * coords.y,
+            transform.rotation,
+            transform
+        );
     }
 }

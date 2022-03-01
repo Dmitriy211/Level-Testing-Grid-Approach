@@ -1,10 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 1;
     [SerializeField] private float _jumpForce = 2;
+    [SerializeField] private float _jumpTime = 1;
+    [SerializeField] private float _attackDashForce = 1;
+    [SerializeField] private float _attackTime = 1;
+    [SerializeField] private GameObject _attackProjectile;
     [SerializeField] private float _gravity = 10;
     [SerializeField] private LayerMask _groundMask;
 
@@ -13,9 +19,8 @@ public class PlayerController : MonoBehaviour
     private UnityEngine.InputSystem.PlayerInput _playerInput;
     private float _verticalVelocity;
     private bool _grounded;
-    private bool _reset;
-    private Vector2 _direction;
-    private bool _lockControls;
+    private bool _lockControls; 
+    private Vector3 _lookVector;
 
     private void Awake()
     {
@@ -27,17 +32,28 @@ public class PlayerController : MonoBehaviour
     {
         _playerInput.actions["Move"].performed += Move;
         _playerInput.actions["Move"].canceled += Move;
-        _playerInput.actions["Jump"].performed += Jump;
+        _playerInput.actions["Jump"].started += Jump;
+        _playerInput.actions["Attack"].started += Attack;
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.actions["Move"].performed -= Move;
+        _playerInput.actions["Move"].canceled -= Move;
+        _playerInput.actions["Jump"].started -= Jump;
+        _playerInput.actions["Attack"].started -= Attack;
     }
 
     private void Update()
     {
         CheckGround();
         Fall();
-        if (_moveVector.sqrMagnitude > 0)
-            _characterController.Move(
-                transform.TransformVector(_moveVector) * _moveSpeed *
-                Time.deltaTime);
+        if (_moveVector.sqrMagnitude > 0 && !_lockControls)
+        {
+            _characterController.Move(_moveVector * _moveSpeed * Time.deltaTime);
+            _lookVector = _moveVector.normalized;
+            transform.forward = _lookVector;
+        }
     }
 
     public void Move(Vector2 moveVector)
@@ -53,15 +69,65 @@ public class PlayerController : MonoBehaviour
     
     public void Jump()
     {
-        if (_grounded)
+        if (_grounded && !_lockControls)
         {
-            _verticalVelocity = _jumpForce;
+            StartCoroutine(JumpRoutine());
         }
     }
 
     public void Jump(InputAction.CallbackContext inputContext)
     {
         Jump();
+    }
+
+    private IEnumerator JumpRoutine()
+    {
+        _lockControls = true;
+        float initialSpeed = _jumpForce;
+        float currentSpeed = initialSpeed;
+        _verticalVelocity = _jumpForce / 2;
+        float timeSpent = 0;
+        
+        while (timeSpent < _jumpTime)
+        {
+            _characterController.Move(_lookVector * currentSpeed * Time.deltaTime);
+            currentSpeed = Mathf.Lerp(initialSpeed, 0, timeSpent / _jumpTime);
+            timeSpent += Time.deltaTime;
+            yield return null;
+        }
+        _lockControls = false;
+    }
+    
+    public void Attack()
+    {
+        if (_grounded && !_lockControls)
+        {
+            StartCoroutine(AttackRoutine());
+        }
+    }
+
+    public void Attack(InputAction.CallbackContext inputContext)
+    {
+        Attack();
+    }
+
+    private IEnumerator AttackRoutine()
+    {
+        _lockControls = true;
+        float initialSpeed = _attackDashForce;
+        float currentSpeed = initialSpeed;
+        float timeSpent = 0;
+        
+        Instantiate(_attackProjectile, transform.position, transform.rotation, transform);
+        
+        while (timeSpent < _attackTime)
+        {
+            _characterController.Move(_lookVector * currentSpeed * Time.deltaTime);
+            currentSpeed = Mathf.Lerp(initialSpeed, 0, timeSpent / _attackTime);
+            timeSpent += Time.deltaTime;
+            yield return null;
+        }
+        _lockControls = false;
     }
 
     private void Fall()
@@ -83,5 +149,10 @@ public class PlayerController : MonoBehaviour
             _groundMask,
             QueryTriggerInteraction.Ignore
         );
+    }
+
+    public void Reset()
+    {
+        transform.localPosition = Vector3.zero;
     }
 }
