@@ -1,0 +1,65 @@
+{
+    "GeneratorTurtle": {
+        "checkpoints": [
+            {
+                "steps": 499880,
+                "file_path": "results\\PCGRL_03\\GeneratorTurtle\\GeneratorTurtle-499880.onnx",
+                "reward": null,
+                "creation_time": 1646375788.8745646,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_03\\GeneratorTurtle\\GeneratorTurtle-499880.pt"
+                ]
+            },
+            {
+                "steps": 504168,
+                "file_path": "results\\PCGRL_03\\GeneratorTurtle\\GeneratorTurtle-504168.onnx",
+                "reward": null,
+                "creation_time": 1646375996.7033331,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_03\\GeneratorTurtle\\GeneratorTurtle-504168.pt"
+                ]
+            },
+            {
+                "steps": 520168,
+                "file_path": "results\\PCGRL_03\\GeneratorTurtle\\GeneratorTurtle-520168.onnx",
+                "reward": -23.0,
+                "creation_time": 1646376793.2223723,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_03\\GeneratorTurtle\\GeneratorTurtle-520168.pt"
+                ]
+            },
+            {
+                "steps": 523880,
+                "file_path": "results\\PCGRL_03\\GeneratorTurtle\\GeneratorTurtle-523880.onnx",
+                "reward": -27.25,
+                "creation_time": 1646376875.100835,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_03\\GeneratorTurtle\\GeneratorTurtle-523880.pt"
+                ]
+            },
+            {
+                "steps": 770280,
+                "file_path": "results\\PCGRL_03\\GeneratorTurtle\\GeneratorTurtle-770280.onnx",
+                "reward": -32.0,
+                "creation_time": 1646379466.986586,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_03\\GeneratorTurtle\\GeneratorTurtle-770280.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 770280,
+            "file_path": "results\\PCGRL_03\\GeneratorTurtle.onnx",
+            "reward": -32.0,
+            "creation_time": 1646379466.986586,
+            "auxillary_file_paths": [
+                "results\\PCGRL_03\\GeneratorTurtle\\GeneratorTurtle-770280.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.10.1+cu113"
+    }
+}
