@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
 
     public void Move(Vector2 moveVector)
     {
+        moveVector = moveVector.normalized;
         _moveVector.z = moveVector.y;
         _moveVector.x = moveVector.x;
     }

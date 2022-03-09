@@ -11,6 +11,8 @@ using Random = UnityEngine.Random;
 
 public class GeneratorAgentTurtle : Agent
 {
+    [SerializeField] private bool _dynamicBuild;
+    
     private LevelBuilder _levelBuilder;
     private int _currentPosition;
 
@@ -40,7 +42,6 @@ public class GeneratorAgentTurtle : Agent
     
     public override void OnEpisodeBegin()
     {
-        print("yes");
         Reset();
     }
 
@@ -88,8 +89,8 @@ public class GeneratorAgentTurtle : Agent
 
     private void GiveReward()
     {
-        AddReward(-Mathf.Abs(_levelBuilder.LevelContent.Count(b => b == (int) BlockType.Player) - 1) + 1);
-        AddReward(-Mathf.Abs(_levelBuilder.LevelContent.Count(b => b == (int) BlockType.Door) - 1) + 1);
+        AddReward(-Mathf.Abs(_levelBuilder.LevelContent.Count(b => b == (int) BlockType.Player) - 1) * 0.1f + 1);
+        AddReward(-Mathf.Abs(_levelBuilder.LevelContent.Count(b => b == (int) BlockType.Door) - 1) * 0.1f + 1);
     }
 
     private void Reset()
