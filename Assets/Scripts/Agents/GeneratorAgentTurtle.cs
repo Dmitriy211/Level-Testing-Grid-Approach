@@ -6,12 +6,15 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngineInternal;
 using Random = UnityEngine.Random;
 
 public class GeneratorAgentTurtle : Agent
 {
     [SerializeField] private bool _dynamicBuild;
+    
+    public UnityEvent EpisodeEnded;
     
     private LevelBuilder _levelBuilder;
     private int _currentPosition;
@@ -21,18 +24,19 @@ public class GeneratorAgentTurtle : Agent
         _levelBuilder = GetComponent<LevelBuilder>();
     }
 
-    private void FixedUpdate()
-    {
-        if (StepCount == MaxStep - 1)
-        {
-            GiveReward();
-        }
-    }
-
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
         MoveTurtle(actionBuffers.DiscreteActions[0]);
         ChangeBlock(_currentPosition, actionBuffers.DiscreteActions[1]);
+        
+        if (StepCount >= MaxStep - 1)
+        {
+            GiveReward();
+            if (!_dynamicBuild)
+                _levelBuilder.BuildLevel();
+            
+            EpisodeEnded?.Invoke();
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -76,7 +80,9 @@ public class GeneratorAgentTurtle : Agent
     private void ChangeBlock(int position, int blockType)
     {
         _levelBuilder.LevelContent[position] = blockType;
-        _levelBuilder.BuildObject(position, blockType, false);
+        
+        if (_dynamicBuild)
+            _levelBuilder.BuildObject(position, blockType, false);
     }
     
     public void GenerateRandomLevel()
@@ -96,6 +102,8 @@ public class GeneratorAgentTurtle : Agent
     private void Reset()
     {
         GenerateRandomLevel();
-        _levelBuilder.BuildLevel();
+        
+        if (_dynamicBuild)
+            _levelBuilder.BuildLevel();
     }
 }

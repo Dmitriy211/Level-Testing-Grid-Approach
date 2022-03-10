@@ -7,12 +7,15 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngineInternal;
 using Random = UnityEngine.Random;
 
 public class SolverAgent : Agent
 {
     [SerializeField] private LevelBuilder _levelBuilder;
+
+    public UnityEvent EpisodeEnded;
     
     private PlayerController _playerController;
     private UnityEngine.InputSystem.PlayerInput _playerInput;
@@ -46,6 +49,11 @@ public class SolverAgent : Agent
         
         if (actionBuffers.DiscreteActions[3] == 1)
             _playerController.Attack();
+
+        if (StepCount >= MaxStep - 1)
+        {
+            EpisodeEnded?.Invoke();
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
