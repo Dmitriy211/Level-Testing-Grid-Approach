@@ -34,7 +34,12 @@ public class LevelBuilder : MonoBehaviour
     {
         _levelObjects = new LevelBlock[_levelContent.Length];
     }
-    
+
+    private void Start()
+    {
+        BuildLevel();
+    }
+
     public void BuildLevel(bool clean = false)
     {
         for (int i = 0; i < _levelContent.Length; i++)
@@ -51,21 +56,16 @@ public class LevelBuilder : MonoBehaviour
         if (_levelObjects[position])
         {
             _levelObjects[position].gameObject.SetActive(false);
-            // Reset blocks
-            
-            // Destroy(_levelObjects[position].gameObject);
         }
 
         Vector2Int coords = GridTools.IntToCoord(position, _gridSize);
 
         _levelObjects[position] = _pools.FirstOrDefault(p => (int) p.Type == blockType).GetBlock(position);
         _levelObjects[position].gameObject.SetActive(true);
+    }
 
-        // _levelObjects[position] = Instantiate(
-        //     _levelBlocks.FirstOrDefault(b => (int)b.BlockType == blockType),
-        //     transform.position + Vector3.right * coords.x + Vector3.forward * coords.y,
-        //     transform.rotation,
-        //     transform
-        // );
+    public void BuildObject(int position)
+    {
+        BuildObject(position, _levelContent[position]);
     }
 }
