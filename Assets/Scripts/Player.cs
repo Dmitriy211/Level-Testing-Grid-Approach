@@ -7,5 +7,6 @@ public class Player : Entity
     public override void Die()
     {
         gameObject.SetActive(false);
+        GetComponentInParent<LevelManager>().Lose();
     }
 }

@@ -14,6 +14,8 @@ public class LevelBuilder : MonoBehaviour
     public BlocksPool[] Pools => _pools;
     public LevelBlock[] LevelObjects => _levelObjects;
     public int[] LevelContent => _levelContent;
+    public int[] CurrentLevelContent { get; private set; }
+
     public Vector2Int GridSize => _gridSize;
 
     private LevelBlock[] _levelObjects;
@@ -46,6 +48,12 @@ public class LevelBuilder : MonoBehaviour
         {
             BuildObject(i, _levelContent[i], clean);
         }
+        ResetCurrentContent();
+    }
+
+    public void ResetCurrentContent()
+    {
+        CurrentLevelContent = _levelContent;
     }
 
     public void BuildObject(int position, int blockType, bool clean = false)
@@ -67,5 +75,11 @@ public class LevelBuilder : MonoBehaviour
     public void BuildObject(int position)
     {
         BuildObject(position, _levelContent[position]);
+    }
+
+    public void ChangeCurrentContent(LevelBlock block, BlockType type)
+    {
+        int position = Array.FindIndex(_levelObjects, obj => obj == block);
+        CurrentLevelContent[position] = (int) type;
     }
 }

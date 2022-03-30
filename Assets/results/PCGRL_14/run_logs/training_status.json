@@ -1,0 +1,65 @@
+{
+    "Solver": {
+        "checkpoints": [
+            {
+                "steps": 5499955,
+                "file_path": "results\\PCGRL_14\\Solver\\Solver-5499955.onnx",
+                "reward": -0.9679999947547913,
+                "creation_time": 1648599446.6276116,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_14\\Solver\\Solver-5499955.pt"
+                ]
+            },
+            {
+                "steps": 5999978,
+                "file_path": "results\\PCGRL_14\\Solver\\Solver-5999978.onnx",
+                "reward": -0.7314285880752972,
+                "creation_time": 1648600855.064752,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_14\\Solver\\Solver-5999978.pt"
+                ]
+            },
+            {
+                "steps": 6499926,
+                "file_path": "results\\PCGRL_14\\Solver\\Solver-6499926.onnx",
+                "reward": 2.8300004998842874,
+                "creation_time": 1648602269.8581727,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_14\\Solver\\Solver-6499926.pt"
+                ]
+            },
+            {
+                "steps": 6999966,
+                "file_path": "results\\PCGRL_14\\Solver\\Solver-6999966.onnx",
+                "reward": 1.8020004332065582,
+                "creation_time": 1648603697.186776,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_14\\Solver\\Solver-6999966.pt"
+                ]
+            },
+            {
+                "steps": 7350997,
+                "file_path": "results\\PCGRL_14\\Solver\\Solver-7350997.onnx",
+                "reward": null,
+                "creation_time": 1648604762.632719,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_14\\Solver\\Solver-7350997.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 7350997,
+            "file_path": "results\\PCGRL_14\\Solver.onnx",
+            "reward": null,
+            "creation_time": 1648604762.632719,
+            "auxillary_file_paths": [
+                "results\\PCGRL_14\\Solver\\Solver-7350997.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.10.1+cu113"
+    }
+}

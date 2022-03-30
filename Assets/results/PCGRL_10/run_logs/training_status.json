@@ -1,0 +1,47 @@
+{
+    "Solver": {
+        "checkpoints": [
+            {
+                "steps": 499950,
+                "file_path": "results\\PCGRL_10\\Solver\\Solver-499950.onnx",
+                "reward": null,
+                "creation_time": 1648558105.863909,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_10\\Solver\\Solver-499950.pt"
+                ]
+            },
+            {
+                "steps": 919910,
+                "file_path": "results\\PCGRL_10\\Solver\\Solver-919910.onnx",
+                "reward": null,
+                "creation_time": 1648559233.147561,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_10\\Solver\\Solver-919910.pt"
+                ]
+            },
+            {
+                "steps": 920371,
+                "file_path": "results\\PCGRL_10\\Solver\\Solver-920371.onnx",
+                "reward": -3.5960001349449158,
+                "creation_time": 1648559490.3956323,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_10\\Solver\\Solver-920371.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 920371,
+            "file_path": "results\\PCGRL_10\\Solver.onnx",
+            "reward": -3.5960001349449158,
+            "creation_time": 1648559490.3956323,
+            "auxillary_file_paths": [
+                "results\\PCGRL_10\\Solver\\Solver-920371.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.10.1+cu113"
+    }
+}

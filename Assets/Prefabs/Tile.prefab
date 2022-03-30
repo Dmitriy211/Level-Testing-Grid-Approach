@@ -96,9 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9286a80b82104cf49944c2c5fae52e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainColor: {r: 0.759434, g: 1, b: 0.80898035, a: 1}
-  _alternativeColor: {r: 0.43467426, g: 0.8301887, b: 0.5124804, a: 1}
-  _highlightColor: {r: 0.9103774, g: 1, b: 0.9292453, a: 1}
+  _mainColor: {r: 0.759434, g: 1, b: 0.80898035, a: 0}
+  _alternativeColor: {r: 0.43467426, g: 0.8301887, b: 0.5124804, a: 0}
+  _highlightColor: {r: 0.3820755, g: 1, b: 0.5164069, a: 0.3882353}
 --- !u!65 &3051145268746551933
 BoxCollider:
   m_ObjectHideFlags: 0

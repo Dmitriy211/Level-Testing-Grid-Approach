@@ -47,7 +47,7 @@ public class LevelEditor : MonoBehaviour
             {
                 LevelTile tile = Instantiate(
                     _tilePrefab,
-                    transform.position + Vector3.right * i + Vector3.forward * j + Vector3.down,
+                    transform.position + Vector3.right * i + Vector3.forward * j + Vector3.up * 0.01f,
                     _tilePrefab.transform.rotation,
                     tileParent
                 );

@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 _moveVector;
     private CharacterController _characterController;
-    private UnityEngine.InputSystem.PlayerInput _playerInput;
+    // private UnityEngine.InputSystem.PlayerInput _playerInput;
     private float _verticalVelocity;
     private bool _grounded;
     private bool _lockControls; 
@@ -24,25 +24,25 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        _playerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
+        // _playerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
         _characterController = GetComponent<CharacterController>();
     }
 
-    private void OnEnable()
-    {
-        _playerInput.actions["Move"].performed += Move;
-        _playerInput.actions["Move"].canceled += Move;
-        _playerInput.actions["Jump"].started += Jump;
-        _playerInput.actions["Attack"].started += Attack;
-    }
-
-    private void OnDisable()
-    {
-        _playerInput.actions["Move"].performed -= Move;
-        _playerInput.actions["Move"].canceled -= Move;
-        _playerInput.actions["Jump"].started -= Jump;
-        _playerInput.actions["Attack"].started -= Attack;
-    }
+    // private void OnEnable()
+    // {
+    //     _playerInput.actions["Move"].performed += Move;
+    //     _playerInput.actions["Move"].canceled += Move;
+    //     _playerInput.actions["Jump"].started += Jump;
+    //     _playerInput.actions["Attack"].started += Attack;
+    // }
+    //
+    // private void OnDisable()
+    // {
+    //     _playerInput.actions["Move"].performed -= Move;
+    //     _playerInput.actions["Move"].canceled -= Move;
+    //     _playerInput.actions["Jump"].started -= Jump;
+    //     _playerInput.actions["Attack"].started -= Attack;
+    // }
 
     private void Update()
     {
