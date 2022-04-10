@@ -44,6 +44,7 @@ public class EntitySpawner : MonoBehaviour
     {
         if (_entityInstance)
         {
+            _entityInstance.gameObject.SetActive(false);
             Destroy(_entityInstance.gameObject);
             transform.GetChild(0).gameObject.SetActive(true);
         }
@@ -57,6 +58,7 @@ public class EntitySpawner : MonoBehaviour
     {
         if (_entityInstance)
         {
+            _entityInstance.gameObject.SetActive(false);
             Destroy(_entityInstance.gameObject);
             Transform parent = GetOrCreateParent();
             _entityInstance = Instantiate(_entityPrefab, transform.position, transform.rotation, parent);

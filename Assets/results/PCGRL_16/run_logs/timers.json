@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1649493035",
+        "python_version": "3.7.13 (default, Mar 28 2022, 08:03:21) [MSC v.1916 64 bit (AMD64)]",
+        "command_line_arguments": "D:\\Users\\Angi\\anaconda3\\envs\\ml-agents-r17\\Scripts\\mlagents-learn Config/PCGRL.yaml --run-id PCGRL_16",
+        "mlagents_version": "0.26.0",
+        "mlagents_envs_version": "0.26.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.21.5",
+        "end_time_seconds": "1649493097"
+    },
+    "total": 61.7159073,
+    "count": 1,
+    "self": 0.1205985999999939,
+    "children": {
+        "run_training.setup": {
+            "total": 0.3048375000000001,
+            "count": 1,
+            "self": 0.3048375000000001
+        },
+        "TrainerController.start_learning": {
+            "total": 61.290471200000006,
+            "count": 1,
+            "self": 0.0001845000000102459,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 61.2902268,
+                    "count": 1,
+                    "self": 61.2902268
+                },
+                "TrainerController._save_models": {
+                    "total": 5.989999999655993e-05,
+                    "count": 1,
+                    "self": 5.989999999655993e-05
+                }
+            }
+        }
+    }
+}

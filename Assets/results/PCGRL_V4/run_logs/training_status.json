@@ -1,0 +1,29 @@
+{
+    "Solver": {
+        "checkpoints": [
+            {
+                "steps": 492916,
+                "file_path": "results\\PCGRL_V4\\Solver\\Solver-492916.onnx",
+                "reward": null,
+                "creation_time": 1649499547.9313874,
+                "auxillary_file_paths": [
+                    "results\\PCGRL_V4\\Solver\\Solver-492916.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 492916,
+            "file_path": "results\\PCGRL_V4\\Solver.onnx",
+            "reward": null,
+            "creation_time": 1649499547.9313874,
+            "auxillary_file_paths": [
+                "results\\PCGRL_V4\\Solver\\Solver-492916.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.26.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

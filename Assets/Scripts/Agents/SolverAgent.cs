@@ -57,13 +57,13 @@ public class SolverAgent : Agent
         _playerController.Move(Vector2.up * (actionBuffers.DiscreteActions[0] - 1) + Vector2.right *
             (actionBuffers.DiscreteActions[1] - 1));
         
-        // if (actionBuffers.DiscreteActions[2] == 1)
-        //     _playerController.Jump();
+        if (actionBuffers.DiscreteActions[2] == 1)
+             _playerController.Jump();
         //
         // if (actionBuffers.DiscreteActions[3] == 1)
         //     _playerController.Attack();
         
-        AddReward((-1f + -3f * _playerCharacteristics.Achiever) / MaxStep);
+        AddReward((-0.5f + -0.5f * _playerCharacteristics.Achiever) / MaxStep);
 
         if (StepCount >= MaxStep - 1)
         {
@@ -77,7 +77,7 @@ public class SolverAgent : Agent
         var discreteActionsOut = actionsOut.DiscreteActions;
         discreteActionsOut[0] = _heuristicActions[0];
         discreteActionsOut[1] = _heuristicActions[1];
-        // discreteActionsOut[2] = _heuristicActions[2];
+        discreteActionsOut[2] = _heuristicActions[2];
         // discreteActionsOut[3] = _heuristicActions[3];
     }
 
@@ -99,29 +99,27 @@ public class SolverAgent : Agent
 
     private void GeneratePlayerCharacteristics()
     {
-        int type = Random.Range(0, 2);
-        
+        float achiever = Random.Range(0f, 1f);
+        float explorer = 1 - achiever;
+
         _playerCharacteristics = new PlayerCharacteristics(
-            type == 0 ? 1 : 0,
-            type == 1 ? 1 : 0,
-            type == 2 ? 1 : 0,
-            type == 3 ? 1 : 0
-        );
+            achiever, explorer, 0, 0
+        ) ;
     }
 
     private void SubscribeToReward()
     {
-        _playerStatistics.CoinCollected.AddListener(() => AddReward(0.1f + 0.3f * _playerCharacteristics.Explorer));
-        _levelManager.Won.AddListener(() => AddReward(1f + 3 * _playerCharacteristics.Achiever));
+        _playerStatistics.CoinCollected.AddListener(() => AddReward(0.05f + 0.1f * _playerCharacteristics.Explorer));
+        _levelManager.Won.AddListener(() => AddReward(0.5f + 1f * _playerCharacteristics.Achiever));
         
-        _levelManager.Lost.AddListener(() => AddReward((MaxStep - StepCount) * (-1f + -3f * _playerCharacteristics.Achiever) / MaxStep));
+        _levelManager.Lost.AddListener(() => AddReward((MaxStep - StepCount) * (-0.5f + -0.5f * _playerCharacteristics.Achiever) / MaxStep));
     }
 
     private void SubscribeToInput()
     {
         _playerInput.actions["Move"].performed += SetAction;
         _playerInput.actions["Move"].canceled += SetAction;
-        // _playerInput.actions["Jump"].started += SetAction;
+        _playerInput.actions["Jump"].started += SetAction;
         // _playerInput.actions["Attack"].started += SetAction;
     }
 
@@ -133,9 +131,9 @@ public class SolverAgent : Agent
                 _heuristicActions[0] = Mathf.RoundToInt(inputContext.ReadValue<Vector2>().y + 1);
                 _heuristicActions[1] = Mathf.RoundToInt(inputContext.ReadValue<Vector2>().x + 1);
                 break;
-            // case "Jump":
-            //     _heuristicActions[2] = (int)inputContext.ReadValue<float>();
-            //     break;
+             case "Jump":
+                 _heuristicActions[2] = (int)inputContext.ReadValue<float>();
+                 break;
             // case "Attack":
             //     _heuristicActions[3] = (int)inputContext.ReadValue<float>();
             //     break;
